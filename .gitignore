@@ -13,3 +13,4 @@ terraform/azure/ansible/*
 **/deployment-playbooks/*
 id_rsa
 *.pub
+*/group_vars/all.yml
