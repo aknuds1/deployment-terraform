@@ -5,7 +5,7 @@
     - name: Set contracts.json
       block:     
         - slurp:
-            src: "/home/{{ ansible_user }}/{{ NETWORK_NAME }}/contracts.json"
+            src: "/home/{{ ansible_user }}/{{ network_name }}/contracts.json"
           register:
             contracts 
         - set_fact:
@@ -63,7 +63,7 @@
     
     - name: Check if contracts were not already deployed
       find:
-        paths: "/home/{{ ansible_user }}/{{ NETWORK_NAME }}/validator-keys"
+        paths: "/home/{{ ansible_user }}/{{ network_name }}/validator-keys"
         file_type: directory
       register: folders
     
@@ -92,7 +92,7 @@
   delegate_to: "{{ inventory_hostname }}"
   synchronize: 
     src: "/home/moc/deployment-terraform/helper-scripts/gen-prod-keys/production-keys/"
-    dest: "/home/{{ ansible_user }}/{{ NETWORK_NAME }}/validator-keys/"
+    dest: "/home/{{ ansible_user }}/{{ network_name }}/validator-keys/"
   when: folders.matched < initial_key_convert_count 
   
 - name: List not converted keys
@@ -104,6 +104,6 @@
   delegate_to: "{{ inventory_hostname }}"
   synchronize: 
     src: "/home/moc/poa-scripts-moc/generateInitialKey/output/{{ item }}"
-    dest: "/home/{{ ansible_user }}/{{ NETWORK_NAME }}/validator-keys/{{ item }}"
+    dest: "/home/{{ ansible_user }}/{{ network_name }}/validator-keys/{{ item }}"
   with_items: "{{ not_converted_keys.stdout_lines }}"
   when: initial_key_count > initial_key_convert_count   

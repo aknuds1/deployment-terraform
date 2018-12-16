@@ -23,11 +23,6 @@ variable region {
   default     = "East US"
 }      
 
-variable resource_group_name {
-  description = "Name of the resource group"
-  default     = "tf-test-full-setup"
-}
-
 variable prefix {
   description = "Prefix all resources names with this string"
   default = "tf-"

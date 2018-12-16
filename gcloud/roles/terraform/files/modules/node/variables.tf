@@ -8,10 +8,6 @@ variable prefix {
   default     = "tf-"
 }
 
-variable resource_group_name {
-  description = "Resource group name. All created resources reside within this resource group"
-}
-
 variable environment_name {
   description = "Set the environment tag for all created resources"
   default     = "Terraform Demo"

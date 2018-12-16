@@ -1,7 +1,7 @@
 - name: Create temporary directory
   file:
     state: directory
-    path: "/tmp/{{ NETWORK_NAME }}"
+    path: "/tmp/{{ network_name }}"
 
 - name: Generate stubs for certificates
   copy:
@@ -9,12 +9,12 @@
     content: ""
     mode: 777
   with_items:
-    - "/tmp/{{ NETWORK_NAME }}/gwcert.pfx"
-    - "/tmp/{{ NETWORK_NAME }}/server.crt"
-    - "/tmp/{{ NETWORK_NAME }}/cert_secret"
+    - "/tmp/{{ network_name }}/gwcert.pfx"
+    - "/tmp/{{ network_name }}/server.crt"
+    - "/tmp/{{ network_name }}/cert_secret"
 
 - name: Get storage key
-  shell: 'az storage account keys list -g {{ resource_group_name }} -n {{ tf_prefix | replace("_", "") | lower }}{{ NETWORK_NAME | lower }}account | grep value | cut -d ":" -f2 | sed "1q;d" | tr -d \" | tr -d "[:space:]"'
+  shell: 'az storage account keys list -g {{ resource_group_name }} -n {{ tf_prefix | replace("_", "") | lower }}{{ network_name | lower }}account | grep value | cut -d ":" -f2 | sed "1q;d" | tr -d \" | tr -d "[:space:]"'
   register: storage_account_key
   when: "lookup ('env','ANSIBLE_AZURE_AUTH_SOURCE') != 'env' and backend|bool == true"
 
@@ -63,7 +63,7 @@
     
 - name: Copy ssh key to terraform directory
   copy: 
-    src: "{{ PUB_KEY_STORE }}"
+    src: "{{ pub_key_store }}"
     dest: "{{ item }}"
   with_items:
     - roles/terraform/files/
@@ -90,7 +90,7 @@
 - name: Delete storage account
   azure_rm_storageaccount:
     resource_group: "{{ resource_group_name }}"
-    name: "{{ tf_prefix | replace('_', '') | replace('-','') | lower }}{{ NETWORK_NAME | lower }}account"
+    name: "{{ tf_prefix | replace('_', '') | replace('-','') | lower }}{{ network_name | lower }}account"
     state: absent
     auth_source: "{{ 'cli' if lookup ('env', 'ANSIBLE_AZURE_AUTH_SOURCE') == '' else lookup ('env', 'ANSIBLE_AZURE_AUTH_SOURCE') }}"
   environment:
@@ -119,6 +119,6 @@
     state: absent
     path: "{{ item }}"
   with_items:
-    - "/tmp/{{ NETWORK_NAME }}"
+    - "/tmp/{{ network_name }}"
     - "roles/terraform/files/.terraform"
     - "roles/balancer/files/.terraform"

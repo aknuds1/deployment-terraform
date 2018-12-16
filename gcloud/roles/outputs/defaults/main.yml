@@ -1,2 +1,2 @@
 ansible_user: "poa"
-NETWORK_NAME: "POA"
+network_name: "POA"

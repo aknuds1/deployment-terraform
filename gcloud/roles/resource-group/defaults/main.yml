@@ -1,3 +1,0 @@
----
-region: East US
-resource_group_name: "{{ NETWORK_NAME }}rg"

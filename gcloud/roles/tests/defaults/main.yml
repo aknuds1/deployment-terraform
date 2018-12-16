@@ -18,11 +18,11 @@ tests_config_dir_path: "/home/{{ ansible_user }}/tests_configs"
 # We expect some config files to be generated on moc node. 
 # Here are paths to this files.
 
-moc_key_path: "/home/moc/parity_data/keys/{{ NETWORK_NAME }}/moc.key"
+moc_key_path: "/home/moc/parity_data/keys/{{ network_name }}/moc.key"
 node_pwd_path: "/home/moc/node.pwd"
-contracts_json_path: "/home/{{ ansible_user }}/{{ NETWORK_NAME }}/contracts.json"
+contracts_json_path: "/home/{{ ansible_user }}/{{ network_name }}/contracts.json"
 spec_json_path: "/home/moc/spec.json"
-moc_path: "/home/{{ ansible_user }}/{{ NETWORK_NAME }}/moc"
+moc_path: "/home/{{ ansible_user }}/{{ network_name }}/moc"
 
 # Path to the script, which can generate toml config for tests framework
 configurator_script_path: "{{ tests_repo_dest }}/helper-scripts/tests-config-generator"

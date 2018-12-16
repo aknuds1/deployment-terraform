@@ -2,8 +2,8 @@
   hosts: moc
   tasks:
     - synchronize:
-        src: "/home/{{ ansible_user }}/{{ NETWORK_NAME }}" 
-        dest: "{{ destination | default ('/tmp/' ~ NETWORK_NAME) }}"
+        src: "/home/{{ ansible_user }}/{{ network_name }}" 
+        dest: "{{ destination | default ('/tmp/' ~ network_name) }}"
         mode: pull
   tags:
     - build
@@ -13,7 +13,7 @@
   tasks:
     - synchronize:
         src: "{{ item }}" 
-        dest: "{{ destination | default ('/tmp/' ~ NETWORK_NAME) }}"
+        dest: "{{ destination | default ('/tmp/' ~ network_name) }}"
         mode: pull
       with_items:
         - "/home/{{ ansible_user }}/tests/helper-scripts/network-tests/error.log"

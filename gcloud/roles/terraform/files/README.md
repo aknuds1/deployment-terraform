@@ -74,7 +74,6 @@ bootnode_lb_count      = "<balanced_bootnode_count>"
 validator_count        = "<validator_count>"
 ssh_public_key         = "<path_to_ssh_public_key>"
 region                 = "<region>"
-resource_group_name    = <RG_name>
 admin_username         = "<ubuntu, centos, admin, poa, etc.>"
 prefix                 = "<prefix_to_all_terraform_resources>"
 ```
@@ -90,15 +89,6 @@ If you want terraform to save its state to Azure blob storage you should also cr
 storage_account_name = "<storage_account_name>"
 container_name       = "<container_name >"
 key                  = "<filename_to_save_or_search>"
-```
-
-### remote-backend-selector.tf
-
-```
-terraform {
-    backend "azurerm" { resource_group_name="<RG_name>" }
-}  
-
 ```
 
 ## Step 5: Deploy

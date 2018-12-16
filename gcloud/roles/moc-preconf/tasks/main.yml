@@ -36,7 +36,7 @@
 - name: Create folder that will contain all configs for created network
   file:
     state: directory
-    path: "/home/{{ ansible_user }}/{{ NETWORK_NAME }}"
+    path: "/home/{{ ansible_user }}/{{ network_name }}"
 
 - name: Add solc repo
   become: yes
@@ -87,7 +87,7 @@
 
 - name: Make folder for keeping network output variables
   file:
-    path: "/home/{{ ansible_user }}/{{ NETWORK_NAME }}/validator-keys"
+    path: "/home/{{ ansible_user }}/{{ network_name }}/validator-keys"
     state: directory
 
 - name: Download terraform repo
@@ -110,7 +110,7 @@
 - name: Installing solc if bytecode is not generated (workaround)
   shell: npm install solc@0.4.24
   args:
-    creates: "/home/{{ ansible_user }}/{{ NETWORK_NAME }}/bytecode"
+    creates: "/home/{{ ansible_user }}/{{ network_name }}/bytecode"
     chdir: /home/{{ ansible_user }}/poa-network-consensus-contracts/scripts/
 
 - name: Generate certificates and secrets
@@ -120,7 +120,7 @@
     executable: "/bin/bash"
   environment:
     ANSIBLE_USER: "{{ ansible_user }}"
-    NETWORK_NAME: "{{ NETWORK_NAME }}"
+    network_name: "{{ network_name }}"
     SRDOMAIN: "{{ ansible_host }}"
     MOC_SECRET: "{{ MOC_SECRET }}"
     CERT_SECRET: "{{ CERT_SECRET }}"
@@ -142,13 +142,13 @@
 - name: Generate spec.json
   template:
     src: spec.json.j2
-    dest: "/home/{{ ansible_user }}/{{ NETWORK_NAME }}/spec.json"
+    dest: "/home/{{ ansible_user }}/{{ network_name }}/spec.json"
   when: SPEC_ADDRESS == ""
 
 - name: Copy spec.json to network folder
   template:
     src: "{{ SPEC_ADDRESS }}"
-    dest: "/home/{{ ansible_user }}/{{ NETWORK_NAME }}/spec.json"
+    dest: "/home/{{ ansible_user }}/{{ network_name }}/spec.json"
   when: SPEC_ADDRESS != ""
 
 - name: Restore default global store for npm modules

@@ -13,7 +13,7 @@
 - name: Slurp variable KEYFILE
   block:
     - slurp:
-        src: "/home/{{ ansible_user }}/{{ NETWORK_NAME }}/moc.json"
+        src: "/home/{{ ansible_user }}/{{ network_name }}/moc.json"
       register: KEYFILE
     - set_fact:
         KEYFILE_decoded: "{{ KEYFILE['content'] | b64decode }}"
@@ -21,7 +21,7 @@
 - name: Slurp variables KEYPASS
   block:
     - slurp:
-        src: "/home/{{ ansible_user }}/{{ NETWORK_NAME }}/moc_secret"
+        src: "/home/{{ ansible_user }}/{{ network_name }}/moc_secret"
       register: KEYPASS
     - set_fact:
         KEYPASS_decoded: "{{ KEYPASS['content'] | b64decode }}"
@@ -32,7 +32,7 @@
     username: "moc"
     MOC_KEYFILE: "{{ KEYFILE_decoded }}"
     MOC_KEYPASS: "{{ KEYPASS_decoded }}"
-    GENESIS_NETWORK_NAME: "{{ NETWORK_NAME }}"
+    GENESIS_network_name: "{{ network_name }}"
 
 - name: Become user moc
   become: true
@@ -90,5 +90,5 @@
 - name: Save contracts.json to output folder
   copy: 
     src: "/home/moc/poa-network-consensus-contracts/contracts.json"
-    dest: "/home/{{ ansible_user }}/{{ NETWORK_NAME }}/"
+    dest: "/home/{{ ansible_user }}/{{ network_name }}/"
     remote_src: yes

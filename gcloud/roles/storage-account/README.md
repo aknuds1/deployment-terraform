@@ -1,3 +1,0 @@
-You can use this playbook to create a storage account and a blob storage inside it. By default
-it will be created with `{{ tf_prefix | replace('_', '') | replace('-','') | lower }}{{ NETWORK_NAME | lower }}account` and `{{ tf_prefix | replace('_', '') | replace('-','') }}{{ NETWORK_NAME | lower }}container` names.
-You can override this behaviour by editing [tasks/main.yml](tasks/main.yml) file only.

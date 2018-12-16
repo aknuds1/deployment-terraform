@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CERTPATH="/home/${ANSIBLE_USER}/${NETWORK_NAME}"
+CERTPATH="/home/${ANSIBLE_USER}/${network_name}"
 KEYGENPATH="/home/${ANSIBLE_USER}/deployment-terraform/helper-scripts/key-generator"
 BYTEGENPATH="/home/${ANSIBLE_USER}/poa-network-consensus-contracts/scripts"
 MOC_SECRET_FILE="moc_secret"

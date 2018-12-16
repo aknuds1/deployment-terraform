@@ -2,7 +2,7 @@
   become: false
   delegate_to: localhost
   copy:
-    dest: "/tmp/{{ NETWORK_NAME }}/bootnodes.txt" 
+    dest: "/tmp/{{ network_name }}/bootnodes.txt" 
     content: ''
     force: yes
     
@@ -12,7 +12,7 @@
 
 - name: Place cert at bootnode
   copy:
-    src: "/tmp/{{ NETWORK_NAME }}/{{ item }}"
+    src: "/tmp/{{ network_name }}/{{ item }}"
     dest: "/etc/nginx/ssl/{{ item }}"
   with_items:
     - server.key
@@ -50,11 +50,11 @@
       delegate_to: "localhost"
       lineinfile:
         line: "{{ enode.json.result }}"
-        path: "/tmp/{{ NETWORK_NAME }}/bootnodes.txt"
+        path: "/tmp/{{ network_name }}/bootnodes.txt"
       
 - name: Send bootnodes.txt to bootnodes
   copy:
-    src: "/tmp/{{ NETWORK_NAME }}/bootnodes.txt"
+    src: "/tmp/{{ network_name }}/bootnodes.txt"
     dest: "/home/bootnode/bootnodes.txt"
     force: true
   notify:

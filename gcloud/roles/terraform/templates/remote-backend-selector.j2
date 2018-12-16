@@ -1,6 +1,9 @@
-terraform {                                                                                                                             
-    backend "azurerm" { 
-        resource_group_name="{{ resource_group_name }}"
-        {% if lookup ('env','ANSIBLE_AZURE_AUTH_SOURCE') != 'env' and backend|bool == true %}access_key="{{ storage_account_key.stdout }}"{% endif %}
-    }                                                                                                                
+terraform {
+  backend "gcs" { 
+    bucket = "{{ bucket_name }}"
+    prefix = "terraform/state"
+    {% if google_credentials is defined %}credentials = "{{ google_credentials }}"{% endif %}
+    project = "{{ project }}"
+    region = "{{ region }}"
+  }                                                                                                                
 }  
