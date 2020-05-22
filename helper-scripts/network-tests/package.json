@@ -11,7 +11,7 @@
     "keythereum": "^1.0.4",
     "toml": "^2.3.3",
     "web3": "^1.0.0-beta.34",
-    "web3-utils": "^1.0.0-beta.34",
+    "web3-utils": "^1.2.8",
     "winston": "^3.0.0"
   }
 }
